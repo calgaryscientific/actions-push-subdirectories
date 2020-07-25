@@ -1,0 +1,15 @@
+# action.yml
+name: 'Push directory to repo'
+description: 'Copies local changes to remote repos'
+inputs:
+  folder:
+    required: true
+  targetBranch:
+    required: true
+  targetRepo:
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.folder }} ${{ inputs.targetBranch }} ${{ inputs.targetRepo }}
