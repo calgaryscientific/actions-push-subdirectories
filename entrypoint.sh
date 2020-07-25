@@ -18,13 +18,13 @@ CLONE_DIR="__${FOLDER}__clone__"
 git clone --depth 1 https://$API_TOKEN_GITHUB@github.com/$TARGET_REPO.git  $CLONE_DIR &> /dev/null
 cd $CLONE_DIR
 find . | grep -v ".git" | grep -v "^\.*$" | xargs rm -rf # delete all files (to handle deletions in monorepo)
-cp -r $BASE/$folder/. .
+cp -r $BASE/$FOLDER/. .
 
 # Commit if there is anything to
 if [ -n "$(git status --porcelain)" ]; then
   git add .
   git commit --message "Update $TARGET_REPO from $GITHUB_REPOSITORY"
-  git push origin develop
+  git push origin $TARGET_BRANCH
 else
   echo "  No changes, skipping update"
 fi
